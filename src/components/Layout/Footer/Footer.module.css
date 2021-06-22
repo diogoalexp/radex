@@ -1,0 +1,42 @@
+@media (max-width: 415px) {
+  footer {
+    position: fixed;
+    background: #00cc66;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: 50px;
+  }
+}
+
+@media (min-width: 650px) {
+  footer {
+    position: fixed;
+    background: #00cc66;
+    max-height: 50px;
+    color: black;
+    background: #00cc66;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
+}
+
+.dono {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.dev {
+  list-style: none;
+  display: flex;
+  flex-flow: column;
+  align-items: right;
+  text-align: right;
+  margin-right: 10px;
+  font-size: 12px;
+}
