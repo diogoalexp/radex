@@ -1,0 +1,35 @@
+{
+  "email": {
+    "config": {
+      "type": "email",
+      "label": "E-mail",
+      "errorText": "erro"
+    },
+    "validation": {
+      "required": true,
+      "isEmail": true
+    }
+  },
+  "password": {
+    "config": {
+      "type": "password",
+      "label": "Senha",
+      "erro": "senha inválida"
+    },
+    "validation": {
+      "required": true,
+      "minLength": 6
+    }
+  },
+  "confirmPassword": {
+    "config": {
+      "type": "password",
+      "label": "Confirmar senha",
+      "erro": "Confirmação de senha inválida"
+    },
+    "validation": {
+      "required": true,
+      "minLength": 6
+    }
+  }
+}

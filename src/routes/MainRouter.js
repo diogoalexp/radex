@@ -9,6 +9,8 @@ import AnonymousRoutes from "./AnonymousRoutes";
 import AuthenticatedRoutes from "./AuthenticatedRoutes";
 
 import Layout from "../components/Layout/Layout";
+import { SnackbarProvider } from "notistack";
+import { Collapse, Button } from "@material-ui/core/";
 
 import * as actions from "../store/index";
 
@@ -39,10 +41,26 @@ const MainRouter = () => {
 
   if (autenticado) routes = <AuthenticatedRoutes />;
 
+  const notistackRef = React.createRef();
+  const onClickDismiss = (key) => () => {
+    notistackRef.current.closeSnackbar(key);
+  };
+
   return (
-      <Layout>
-        {routes}
-      </Layout>
+    <SnackbarProvider
+      ref={notistackRef}
+      maxSnack={3}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right",
+      }}
+      TransitionComponent={Collapse}
+      dense
+      preventDuplicate
+      action={(key) => <Button onClick={onClickDismiss(key)}>✖️</Button>}
+    >
+      <Layout>{routes}</Layout>
+    </SnackbarProvider>
   );
 };
 

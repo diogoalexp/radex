@@ -1,0 +1,38 @@
+{
+  "global":{
+    "signUp": "Cadastrar",
+    "signIn": "Entrar",
+    "put": "Cadastrado com sucesso.",
+    "update": "Atualizado com sucesso",
+    "delete": "Removido com sucesso",
+    "back": "Voltar",
+    "edit": "Editar"
+  },
+  "home": {
+  },
+  "auth":{
+    "passInvalidConfirmation": "A senha e a confirmação de senha precisam ter o mesmo valor.",
+    "passConfirmationSent": "Uma confirmação foi enviada para o seu e-mail.",
+    "passNewSent": "Uma nova senha foi enviada para o seu e-mail.",
+    "passError": "Erro ao enviar nova senha",
+    "passForgot": "Esqueci minha senha",
+    "signInTitle": "Acesso para Usuários",
+    "signUpTitle": "Cadastro para Usuários",
+    "signInLink": "Eu já possuo uma conta",
+    "signUpLink": "Cadastrar uma nova conta"
+  },
+  "erro": {
+    "DEFAULT": "Aconteceu um erro!",
+    "BAD_CONNECTION": "Problema de conexão!",
+    "EMAIL_EXISTS": "Esse email já existe!",
+    "EMAIL_NOT_FOUND": "Esse email não foi encontrado!",
+    "INVALID_PASSWORD": "Usuário ou senha inválidos!",
+    "VERIFY_PASSWORD_RESPONSE": "Seu email ainda não foi confirmado.",
+    "INVALID_ID_TOKEN": "Sua chave de segurança não é válida.",
+    "TOO_MANY_ATTEMPTS_TRY_LATER": "Sua conta está temporariamente desabilitada devido a muitas tentativas de login, tente novamente mais tarde.",
+    "GLOBAL_DEFAULT_ERROR":"Não foi possível completar a sua requisição.",
+    "GLOBAL_DEFAULT_WARNING":"Houve um problema com a sua requisição.",
+    "GLOBAL_DEFAULT_INFO":"Sua requisição foi enviada.",
+    "GLOBAL_DEFAULT_SUCCESS":"Requisição realizada com sucesso."
+  }
+}

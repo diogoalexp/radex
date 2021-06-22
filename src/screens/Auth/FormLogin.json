@@ -1,0 +1,37 @@
+{
+  "email": {
+    "config": {
+      "type": "email",
+      "label": "E-mail",
+      "errorText": "erro"
+    },
+    "validation": {
+      "required": true,
+      "isEmail": true
+    },
+    "override":{
+      "autoComplete": "email"
+    }
+  },
+  "password": {
+    "config": {
+      "type": "password",
+      "label": "Senha",
+      "erro": "senha inválida"
+    },
+    "validation": {
+      "required": true,
+      "minLength": 6
+    },
+    "override":{
+      "autoComplete": "current-password"
+    }
+  },
+  "keep": {
+    "config": {
+      "type": "checkbox",
+      "label": "Manter Conectado"
+    },
+    "valid": true
+  }
+}
