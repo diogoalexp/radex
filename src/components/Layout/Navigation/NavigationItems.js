@@ -7,9 +7,9 @@ const navigationItems = (props) => (
   <ul className={classes.NavigationItems}>
     {props.isAuthenticated
       ? [
-        <NavigationItem link="/" exact key="1">
-          Home
-      </NavigationItem>,
+        // <NavigationItem link="/" exact key="1">
+        //   Radex
+        // </NavigationItem>,
         <NavigationItem link="/perfil" key="2">
           Perfil
       </NavigationItem>,
@@ -21,9 +21,12 @@ const navigationItems = (props) => (
       </NavigationItem>,
       ]
       : [
-        <NavigationItem link="/entrar" key="5">
-          Entrar
+        <NavigationItem link="/artigos" key="5">
+          Artigos
         </NavigationItem>,
+        <NavigationItem link="/entrar" key="6">
+          Entrar
+          </NavigationItem>,
       ]}
   </ul>
 );

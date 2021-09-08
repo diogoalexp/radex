@@ -129,14 +129,14 @@ const Auth = (props) => {
                   {locale.auth.passForgot}
                 </Link>
               </Grid>
-              <Grid item xs>
+              {/* <Grid item xs>
                 <Link
                   onClick={() => setIsLogin((prevState) => !prevState)}
                   variant="body2"
                 >
                   {isLogin ? locale.auth.signUpLink : locale.auth.signInLink}
                 </Link>
-              </Grid>
+              </Grid> */}
             </Grid>
           </Card>
         </Grid>

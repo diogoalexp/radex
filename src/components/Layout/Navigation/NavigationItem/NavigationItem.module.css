@@ -29,11 +29,11 @@
   }
 
   .NavigationItem a {
-    color: black;
+    color: white;
     height: 100%;
     padding: 16px 10px;
     border-bottom: 4px solid transparent;
-    font-size: 40px;
+    font-size: 20px;
     font-weight: bold;
   }
 

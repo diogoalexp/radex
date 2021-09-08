@@ -52,6 +52,7 @@ import {
     CardHeader,
     CardActions,
     CardContent,
+    CardMedia,
   
     //ICONS
     ListItemIcon,
@@ -100,6 +101,7 @@ import {
     CardHeader,
     CardActions,
     CardContent,
+    CardMedia,
     CircularProgress,
     FormControl,
     InputLabel,

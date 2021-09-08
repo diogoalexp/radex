@@ -228,7 +228,7 @@ const input = (props) => {
         </b>
       );
   }
-
+  
   return (
     <div className={classes.Input}>
       {props.config?.type === "img" ? (

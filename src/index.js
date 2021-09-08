@@ -10,6 +10,7 @@ import MainRouter from "./routes/MainRouter";
 import reportWebVitals from './reportWebVitals';
 
 import authReducer from "./store/reducers/auth";
+import userReducer from "./store/reducers/user";
 
 const composeEnhancers =
   (process.env.NODE_ENV === "development"
@@ -18,6 +19,7 @@ const composeEnhancers =
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  user: userReducer
 });
 
 const store = createStore(

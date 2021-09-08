@@ -1,0 +1,44 @@
+{
+  "img": {
+    "config": {
+      "type": "img",
+      "label": "Imagem",
+      "erro": "Imagem inválida"
+    },
+    "validation": {
+      "required": true
+    }
+  },
+  "nome": {
+    "config": {
+      "type": "text",
+      "label": "Nome",
+      "erro": "Nome inválido"
+    },
+    "validation": {
+      "required": true
+    }
+  },
+  "idade": {
+    "config": {
+      "type": "text",
+      "label": "Idade",
+      "erro": "Idade inválida"
+    },
+    "validation": {
+      "required": true,
+      "minLength": 2
+    }
+  },
+  "cargo": {
+    "config": {
+      "type": "text",
+      "label": "Cargo",
+      "erro": "Cargo inválido"
+    },
+    "validation": {
+      "required": true,
+      "minLength": 2
+    }
+  }
+}
