@@ -26,12 +26,5 @@
     "override":{
       "autoComplete": "current-password"
     }
-  },
-  "keep": {
-    "config": {
-      "type": "checkbox",
-      "label": "Manter Conectado"
-    },
-    "valid": true
   }
 }

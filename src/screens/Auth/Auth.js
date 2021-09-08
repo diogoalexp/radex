@@ -38,7 +38,7 @@ const Auth = (props) => {
         }
 
         await dispatch(
-          actions.signUp(form.email.value, form.password.value, false)
+          actions.createUserWithEmailAndPassword(form.email.value, form.password.value)
         );
         setIsLogin((prevState) => !prevState);
 
@@ -46,11 +46,9 @@ const Auth = (props) => {
       }
 
       await dispatch(
-        actions.signInWithPassword(
+        actions.signInWithEmailAndPassword(
           form.email.value,
           form.password.value,
-          form.keep.value,
-          true
         )
       ).then(() => {
         props.history.push({

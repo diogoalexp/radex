@@ -24,16 +24,17 @@ const MainRouter = () => {
   window.scrollTo(0, 0);
 
   useEffect(() => {
-    dispatch(actions.tryAutoLogin());
-  }, []);
-
-
-  useEffect(() => {
     if (!fbReady) {
       firebase.initializeApp(config.firebase);
       setFbReady(true);
     }
+  }, [])
+
+  useEffect(() => {
+    dispatch(actions.tryAutoLogin());
   }, []);
+
+
 
   if (!fbReady || !didTryAutoLogin) return null;
 

@@ -9,7 +9,7 @@ const Logout = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actions.logout());
+    dispatch(actions.signOut());
   }, []);
 
   return <Redirect to="/" />;

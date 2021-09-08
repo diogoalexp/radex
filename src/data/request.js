@@ -125,7 +125,7 @@ export const log = async (url, msg, token) => {
       user: await localStorage.getItem("userData"),
     };
 
-    fetch(config.apiBaseURL + `${url}.json${authToken}`, {
+    fetch(config.apiLogURL + `${url}.json${authToken}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

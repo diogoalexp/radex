@@ -1,8 +1,8 @@
 
 export {
   tryAutoLogin,
-  signInWithPassword,
-  signUp,
-  logout,
+  signOut,
   forgotPassword,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
 } from "./actions/auth";
