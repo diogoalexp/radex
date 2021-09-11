@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { withLocale, withNotify } from "../../components/HighOrder/";
-import { Form } from "../../components/Custom/";
 
 import {
   Card,
   Grid,
-  Link,
-  Typography,
-  Avatar,
   Container,
-  Icons,
   makeStyles,
-  Colors,
   Paper
 } from "../../components/UI/";
 
@@ -22,39 +16,20 @@ import * as actions from "../../store/index";
 const { innerWidth: width, innerHeight: height } = window;
 
 const Artigos = (props) => {
-  const { locale, notify } = props;
   const dispatch = useDispatch();
 
-
-  console.log('window', window)
-
-
-  const [erro, setErro] = useState(null);
+  const artigos = useSelector((state) => state.article.articles);
   const [PDF, setPDF] = useState(null);
 
-  const artigos = [
-    {
-      nome: "Protocolo Clínico e Diretrizes Terapêuticas Osteoporose",
-      file: "https://firebasestorage.googleapis.com/v0/b/radex-5e198.appspot.com/o/artigos%2FProtocoloCl%C3%ADnicoeDiretrizes.pdf?alt=media&token=a5f96b11-8acd-4d06-8157-5277e2a696ba"
-    },
-    {
-      nome: "Posições oficiais 2008 da Sociedade Brasileira de Densitometria Clínica ",
-      file: "https://firebasestorage.googleapis.com/v0/b/radex-5e198.appspot.com/o/artigos%2FPosicoesOficiais2008.pdf?alt=media&token=181fbe64-9d01-4734-825b-6a2fa9d6decd"
-    },
-    {
-      nome: "Osteoporose",
-      file: "https://firebasestorage.googleapis.com/v0/b/radex-5e198.appspot.com/o/artigos%2FOsteoporose.pdf?alt=media&token=afa6aced-7905-47c1-ab8f-cc4de86aecdb"
-    },
-    {
-      nome: "2019 ISCD Official Positions",
-      file: "https://firebasestorage.googleapis.com/v0/b/radex-5e198.appspot.com/o/artigos%2F2019OfficialPositionsAdult.pdf?alt=media&token=df4f23da-8231-42c3-864d-9fb39ec6c9bc"
+  useEffect(() => {
+    if (!artigos) {
+      dispatch(actions.fetchArticles())
     }
-  ]
+  }, [])
 
   const onChange = (artigo) => {
-    setPDF(artigo.file)
+    setPDF(artigo)
   }
-
 
   const classes = useStyles();
   return (
@@ -67,9 +42,9 @@ const Artigos = (props) => {
                 {/* <Avatar className={classes.image} src={imgCeline} /> */}
                 <span className={classes.title}>Artigos</span>
                 <div>
-                  {
-                    artigos.map((artigo, index) => (
-                      <div key={index} onClick={() => onChange(artigo)} className={index % 2 == 0 ? classes.row1 : classes.row2}>
+                  {                    
+                    artigos?.map((artigo, index) => (
+                      <div key={index} onClick={() => onChange(artigo)} className={artigo.nome == PDF?.nome ? classes.rowselected: index % 2 == 0 ? classes.row1 : classes.row2}>
                         <span className={classes.text}>
                           {artigo.nome}
                         </span>
@@ -81,7 +56,7 @@ const Artigos = (props) => {
               </Paper>
               <div className={classes.artigosRight}>
                 <div>
-                  <iframe id="artigosPDF" src={PDF} className={classes.artigosPDF}></iframe>
+                  <iframe id="artigosPDF" src={PDF?.file} className={classes.artigosPDF}></iframe>
                   {/* <object data={PDF} type="application/pdf">
                     <embed src={PDF} type="application/pdf" />
                   </object> */}
@@ -147,6 +122,10 @@ const useStyles = makeStyles((theme) => ({
   },
   row1: {
     backgroundColor: 'gray'
+  },
+  rowselected: {
+    backgroundColor: '#00cc66',
+    color: 'white'
   },
 }));
 

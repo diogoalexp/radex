@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { withLocale, withNotify } from "../../components/HighOrder/";
 import { Form, Spinner } from "../../components/Custom/";
 
+import moment from 'moment'
+
 import {
   Card,
   Grid,
@@ -27,6 +29,7 @@ import formPerfil from "./FormPerfil.json";
 const Perfil = (props) => {
   const classes = useStyles();
   const perfil = useSelector((state) => state.user.perfil);
+  const respostas = useSelector((state) => state.user.respostas);
 
 
   const { locale, notify } = props;
@@ -38,7 +41,6 @@ const Perfil = (props) => {
 
   useEffect(() => {
     setLoading(true);
-    console.log('perfil', perfil);
     if (!perfil) {
       dispatch(actions.fetchPerfil());
       setLoading(false);
@@ -49,6 +51,12 @@ const Perfil = (props) => {
     }
 
   }, [perfil]);
+
+  useEffect(() => {
+    if (!respostas) {
+      dispatch(actions.fetchRespostas());
+    }
+  }, [respostas]);
 
   const submitHandler = (form) => {
 
@@ -79,9 +87,33 @@ const Perfil = (props) => {
     });
   }
 
+  const scoreLast = () => {
+    const last = respostas?.reduce((a, b) => {
+      console.log('Date(a.data)', moment(a.data))
+      console.log('Date(b.data)', moment(b.data))
+      return moment(a.data.toDate() ) > moment(b.data.toDate() ) ? a : b;
+    });
+
+    return last ? last.nota : 'Sem valor';
+  }
+
+  const scoreTotal = () => {
+    let score = 0;
+    for (const key in respostas) {
+      console.log('respostas[key]', respostas[key])
+      score = score + parseFloat(respostas[key].nota)
+    }
+    score = score > 0
+    ? ((score / respostas.length)).toFixed(1)
+    : 0
+
+    return score;
+  }
+
+
+
   if (loading) return <Spinner />;
 
-  console.log('form', form);
   return (
     <Container container component="main">
       <Grid container spacing={3} direction="row" justify="center" alignItems="center">
@@ -100,12 +132,12 @@ const Perfil = (props) => {
               <div className={classes.perfilRight}>
                 <div className={classes.perfilText}>
                   <span className={classes.title}>
-                    Pontuação: {10}
+                    Pontuação: {scoreTotal()}
                   </span>
                 </div>
                 <div className={classes.perfilText}>
                   <span className={classes.text}>
-                    Última Avaliação: {8}
+                    Última Avaliação: {scoreLast()}
                   </span>
                 </div>
                 <div className={classes.perfilText}>

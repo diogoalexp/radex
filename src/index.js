@@ -11,6 +11,8 @@ import reportWebVitals from './reportWebVitals';
 
 import authReducer from "./store/reducers/auth";
 import userReducer from "./store/reducers/user";
+import articleReducer from "./store/reducers/article";
+import quizReducer from "./store/reducers/quiz";
 
 const composeEnhancers =
   (process.env.NODE_ENV === "development"
@@ -19,7 +21,9 @@ const composeEnhancers =
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  user: userReducer
+  user: userReducer,
+  article: articleReducer,
+  quiz: quizReducer
 });
 
 const store = createStore(

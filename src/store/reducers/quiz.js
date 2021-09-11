@@ -1,27 +1,28 @@
-import { SET_PERFIL, SET_RESPOSTAS, SET_NOTA } from "../types";
+import { SET_QUESTIONS, SET_START, SET_NOTA } from "../types";
 
 const initialState = {
-  clinica: 'bNB5j36HcXbkEkWysmry',
-  perfil: null,
-  respostas: null
+  start: null,
+  questions: null,
+  nota: null
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_PERFIL:
+    case SET_START:
       return {
         ...state,
-        perfil: action.perfil
+        start: action.start
       };
-    case SET_RESPOSTAS:
+    case SET_QUESTIONS:
       return {
         ...state,
-        respostas: action.respostas
+        questions: action.questions
       };
     case SET_NOTA:
       return {
         ...state,
-        respostas: null
+        questions: null,
+        nota: action.nota
       };
     default:
       return state;

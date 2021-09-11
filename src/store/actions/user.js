@@ -3,6 +3,7 @@ import * as actionTypes from '../types';
 import firebase from 'firebase'
 
 import Perfil from "../../models/Perfil";
+import Respostas from "../../models/Respostas";
 
 export const fetchPerfil = () => {
   return async (dispatch, getState) => {
@@ -83,6 +84,40 @@ export const setPerfil = (nome, idade, cargo, imgField) => {
         });
     } catch (err) {
       console.log('err', err)
+      // send to custom analytics server
+      throw err;
+    }
+  };
+};
+
+export const fetchRespostas = () => {
+  return async (dispatch, getState) => {
+    try {
+      var db = firebase.firestore();
+      const userId = getState().auth.userId;
+
+      let loadedRespostas = [];
+      await db.collection("usuarios").doc(userId).collection("respostas")
+        .withConverter(Respostas.converter)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            loadedRespostas.push(doc.data());
+          });
+          console.log('loadedRespostas', loadedRespostas);
+          dispatch({
+            type: actionTypes.SET_RESPOSTAS,
+            respostas: loadedRespostas,
+          });
+        }).catch((error) => {
+          dispatch({
+            type: actionTypes.SET_RESPOSTAS,
+            respostas: [],
+          });
+          throw error;
+        });
+
+    } catch (err) {
       // send to custom analytics server
       throw err;
     }
