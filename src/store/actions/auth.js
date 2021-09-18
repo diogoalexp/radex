@@ -92,11 +92,12 @@ export const forgotPassword = (email) => {
   console.log('forgotPassword');
   return async dispatch => {
     try {
-      firebase.auth().sendPasswordResetEmail(email)
+      await firebase.auth().sendPasswordResetEmail(email)
         .then(() => {
           // Password reset email sent!
         })
         .catch((error) => {
+          console.log('error', error);
           throw error;
         });
     } catch (error) {

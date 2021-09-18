@@ -84,7 +84,11 @@ const Auth = (props) => {
         notify.success(locale.auth.passNewSent);
       })
       .catch((err) => {
-        notify.error(locale.auth.passError, err);
+        console.log('err', err);
+        if (err?.code == "auth/user-not-found")
+          notify.error(locale.erro.EMAIL_NOT_FOUND, err);
+        else
+          notify.error(locale.auth.passError, err);
       });
   };
 
@@ -96,7 +100,7 @@ const Auth = (props) => {
         onClose={() => setIsForgotPassword(false)}
         submit={forgotPassword}
       />
-      <Grid container spacing={3}  direction="row" justify="center" alignItems="center">
+      <Grid container spacing={3} direction="row" justify="center" alignItems="center">
         <Grid item xs={6}>
           <Card className={classes.card}>
             <Avatar className={classes.pink}>
