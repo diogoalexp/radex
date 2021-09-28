@@ -1,8 +1,9 @@
 class Artigos {
-    constructor(id, nome, file) {
+    constructor(id, nome, file, url) {
         this.id = id;
         this.nome = nome;
         this.file = file;
+        this.url = url;
     }
 
     // Firestore data converter
@@ -11,12 +12,13 @@ class Artigos {
             return {
                 id: data.id,
                 nome: data.nome,
-                file: data.file
+                file: data.file,
+                url: data.url
             };
         },
         fromFirestore: function (snapshot, options) {
             const data = snapshot.data(options);
-            return new Artigos(snapshot.id, data.nome, data.file);
+            return new Artigos(snapshot.id, data.nome, data.file, data.url);
         }
     };
 }

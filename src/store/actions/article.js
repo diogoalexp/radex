@@ -29,10 +29,10 @@ export const fetchArticles = () => {
           });
           throw error;
         });
-        
+
     } catch (err) {
-  // send to custom analytics server
-  throw err;
-}
+      // send to custom analytics server
+      throw err;
+    }
   };
 };

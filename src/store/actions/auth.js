@@ -97,7 +97,6 @@ export const forgotPassword = (email) => {
           // Password reset email sent!
         })
         .catch((error) => {
-          console.log('error', error);
           throw error;
         });
     } catch (error) {

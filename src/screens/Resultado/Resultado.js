@@ -23,7 +23,7 @@ const Resultado = (props) => {
 
   const classes = useStyles();
   return (
-    <Container container component="main">
+    <Container component="main">
       <Grid container spacing={3} direction="row" justify="center" alignItems="center">
         <Grid item xs={12}>
           <Card className={classes.card}>

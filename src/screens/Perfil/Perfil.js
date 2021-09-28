@@ -39,17 +39,15 @@ const Perfil = (props) => {
   const [erro, setErro] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  useEffect(async () => {
     setLoading(true);
     if (!perfil) {
-      dispatch(actions.fetchPerfil());
-      setLoading(false);
+      await dispatch(actions.fetchPerfil());
     }
     else {
-      setForm(loadForm({ ...formPerfil }, perfil));
-      setTimeout(function () { setLoading(false); }, 500);
+      await setForm(loadForm({ ...formPerfil }, perfil));
     }
-
+    setLoading(false);
   }, [perfil]);
 
   useEffect(() => {
@@ -88,10 +86,11 @@ const Perfil = (props) => {
   }
 
   const scoreLast = () => {
-    const last = respostas?.reduce((a, b) => {
-      console.log('Date(a.data)', moment(a.data))
-      console.log('Date(b.data)', moment(b.data))
-      return moment(a.data.toDate() ) > moment(b.data.toDate() ) ? a : b;
+    let last = null;
+
+    if (respostas && respostas.length > 0)
+      last = respostas?.reduce((a, b) => {
+      return moment(a.data.toDate()) > moment(b.data.toDate()) ? a : b;
     });
 
     return last ? last.nota : 'Sem valor';
@@ -100,22 +99,21 @@ const Perfil = (props) => {
   const scoreTotal = () => {
     let score = 0;
     for (const key in respostas) {
-      console.log('respostas[key]', respostas[key])
       score = score + parseFloat(respostas[key].nota)
     }
     score = score > 0
-    ? ((score / respostas.length)).toFixed(1)
-    : 0
+      ? ((score / respostas.length)).toFixed(1)
+      : 0
 
     return score;
   }
 
 
 
-  if (loading) return <Spinner />;
+  if (loading || !perfil) return <Spinner />;
 
   return (
-    <Container container component="main">
+    <Container component="main">
       <Grid container spacing={3} direction="row" justify="center" alignItems="center">
         <Grid item xs={12}>
           <Card className={classes.card}>
@@ -167,16 +165,16 @@ const useStyles = makeStyles((theme) => ({
   },
   perfilLeft: {
     flex: 1,
-    marginLeft: 50,
+    marginLeft: window.innerWidth > 500 ? 50 : 0,
   },
   perfilRight: {
     flex: 1,
-    margin: 50,
+    margin: window.innerWidth > 500 ? 50 : 0,
   },
   perfilText: {
     flex: 1,
     marginTop: 50,
-    marginLeft: 100,
+    marginLeft: window.innerWidth > 500 ? 100 : 20,
     width: '100%',
     textAlign: 'left'
   },
@@ -186,17 +184,18 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     padding: "5px 5px 5px 5px",
+    marginBottom: 20
   },
   title: {
-    fontSize: 32,
+    fontSize: window.innerWidth > 500 ? 32 : 16,
     fontWeight: 'bold',
     textAlign: 'left'
   },
   text: {
-    fontSize: 24
+    fontSize: window.innerWidth > 500 ? 24 : 14
   },
   link: {
-    fontSize: 18
+    fontSize: window.innerWidth > 500 ? 18 : 12
   }
 }));
 

@@ -7,8 +7,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-import moment from 'moment'
-
 import { withLocale, withNotify } from "../../components/HighOrder/";
 
 import {
@@ -25,13 +23,10 @@ import * as actions from "../../store/index";
 
 import noImg from "../../assets/icons/no-image-icon.png";
 
-const { innerWidth: width, innerHeight: height } = window;
-
 const Quiz = (props) => {
   const dispatch = useDispatch();
 
   const questions = useSelector((state) => state.quiz.questions);
-  const start = useSelector((state) => state.quiz.start);
   const [form, setForm] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -76,9 +71,9 @@ const Quiz = (props) => {
       if (form[questions[key].id] == questions[key].resposta)
         acertos = acertos + 1;
     }
-    const nota = acertos > 0 
-    ? ((acertos / questions.length) * 10).toFixed(1) 
-    : 0
+    const nota = acertos > 0
+      ? ((acertos / questions.length) * 10).toFixed(1)
+      : 0
 
     await dispatch(actions.setNota(form, nota))
 
@@ -103,51 +98,68 @@ const Quiz = (props) => {
 
   const classes = useStyles();
   return (
-    <Container container component="main">
+    <Container component="main">
+      <div className={classes.countdown}>
+        <div className={classes.bold}>Tempo: {Math.floor(counter / 60)}min {Math.floor(counter % 60)}seg </div>
+      </div>
+      <div className={classes.submit}>
+        <Button
+          type="submit"
+          color="primary"
+          variant="contained"
+          disabled={!isFormValid()}
+          onClick={() => onSubmit()}
+        >
+          {!loading ? "Finalizar" : "Processando"}
+        </Button>
+      </div>
       <Grid container spacing={3} direction="row" justify="center" alignItems="center">
         <Grid item xs={12}>
           <Card className={classes.card}>
-            <div className={classes.countdown}>
-              <div className={classes.bold}>Tempo: {Math.floor(counter / 60)}min {Math.floor(counter % 60)}seg </div>
-            </div>
-            <div className={classes.submit}>
-              <Button
-                type="submit"
-                color="primary"
-                variant="contained"
-                disabled={!isFormValid()}
-                onClick={() => onSubmit()}
-              >
-                {!loading ? "Finalizar" : "Processando"}
-              </Button>
-            </div>
             <div className={classes.questionContainer}>
               <div>
                 {
                   questions?.map((question, index) => (
                     <Paper key={'question' + index}>
-                      <span className={classes.enunciado}>
-                        <span className={classes.bold}>Pergunta {index + 1}</span>: {question.enunciado}
-                      </span>
+                      <div className={classes.enunciado}>
+                        <span className={classes.bold}>Pergunta {index + 1}: {question.enunciado} </span>
+                      </div>
                       <div className={classes.row}>
                         {
                           question.imagem ?
-                            <img
-                              src={question.imagem ? question.imagem : noImg}
-                              height={"512"}
-                              width={"512"}
-                              alt={"no img"}
-                            />
+                            <div>
+                              <img
+                                src={question.imagem ? question.imagem : noImg}
+                                height={window.innerWidth > 500 ? "512" : "320"}
+                                width={window.innerWidth > 500 ? "512" : "320"}
+                                alt={"no img"}
+                              />
+                              <br />
+                            </div>
                             : null
                         }
-                        <br />
+
                         <div>
+                          {question?.afirmativas ?
+                            <div className={classes.afirmativas}>
+                              {
+                                question?.afirmativas?.map((afirmativa, index) => (
+                                  <div key={'afirmativa' + index}>
+                                    <span className={classes.text}>{afirmativa}</span>
+                                    <br />
+                                  </div>
+                                ))
+                              }
+                            </div>
+                            : null
+                          }
+
                           <FormControl component="fieldset">
                             <FormLabel component="legend">{question.pergunta}</FormLabel>
                             <RadioGroup aria-label={question.id} name={question.id} value={form && form[question.id] ? form[question.id] : ''} onChange={handleChange}>
                               {
                                 question?.alternativas?.map((alternativa, index) => (
-                                  <FormControlLabel key={'alternativa' + index} value={alternativa} control={<Radio />} label={alternativa} />
+                                  <FormControlLabel key={'alternativa' + index} value={alternativa} control={<Radio />} label={alternativa} className={classes.alternativa} />
                                 ))
                               }
                             </RadioGroup>
@@ -188,10 +200,20 @@ const useStyles = makeStyles((theme) => ({
   enunciado: {
     fontSize: 18,
     textAlign: 'justify',
-    textJustify: 'inter-word',    
+    textJustify: 'inter-word',
+  },
+  afirmativas: {
+    fontSize: 18,
+    textAlign: 'justify',
+    textJustify: 'inter-word',
+    marginBottom: 20
+  },
+  alternativa: {
+    textAlign: 'justify',
+    textJustify: 'inter-word',
   },
   text: {
-    fontSize: 12,
+    fontSize: 18,
     textAlign: 'left'
   },
   bold: {
@@ -205,15 +227,19 @@ const useStyles = makeStyles((theme) => ({
   },
   countdown: {
     position: "fixed",
-    bottom: 50,
+    zIndex: 100000,
+    tableLayout: 'fixed',
+    top: 15,
     left: 80,
     backgroundColor: '#00cc66',
     borderRadius: 50,
   },
   submit: {
     position: "fixed",
-    bottom: 50,
-    right: 80
+    zIndex: 100000,
+    tableLayout: 'fixed',
+    bottom: 35,
+    right: 15
   }
 }));
 

@@ -45,11 +45,11 @@ export const setPerfil = (nome, idade, cargo, imgField) => {
     try {
       var db = firebase.firestore();
       const userId = getState().auth.userId;
-      const date = firebase.firestore.Timestamp.now();
       let imgBucket = `usuarios/${userId}/perfil`;
-      let img = imgField.value;
+      let img = null;
 
-      if (imgField.touched) {
+      if (imgField?.touched) {
+        img = imgField?.value;
         const ref = firebase.storage().ref();
 
         ref
@@ -65,7 +65,7 @@ export const setPerfil = (nome, idade, cargo, imgField) => {
           nome,
           idade,
           cargo,
-          img
+          img: img
         })
         .then(() => {
           dispatch({
@@ -83,7 +83,6 @@ export const setPerfil = (nome, idade, cargo, imgField) => {
           throw error;
         });
     } catch (err) {
-      console.log('err', err)
       // send to custom analytics server
       throw err;
     }
@@ -104,7 +103,6 @@ export const fetchRespostas = () => {
           querySnapshot.forEach((doc) => {
             loadedRespostas.push(doc.data());
           });
-          console.log('loadedRespostas', loadedRespostas);
           dispatch({
             type: actionTypes.SET_RESPOSTAS,
             respostas: loadedRespostas,

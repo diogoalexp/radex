@@ -28,12 +28,15 @@ const Artigos = (props) => {
   }, [])
 
   const onChange = (artigo) => {
+    if (artigo?.url)
+      window.open(artigo?.url, '_blank');
+
     setPDF(artigo)
   }
 
   const classes = useStyles();
   return (
-    <Container container component="main">
+    <Container component="main">
       <Grid container spacing={3} direction="row" justify="center" alignItems="center">
         <Grid item xs={12}>
           <Card className={classes.card}>
@@ -42,9 +45,9 @@ const Artigos = (props) => {
                 {/* <Avatar className={classes.image} src={imgCeline} /> */}
                 <span className={classes.title}>Artigos</span>
                 <div>
-                  {                    
+                  {
                     artigos?.map((artigo, index) => (
-                      <div key={index} onClick={() => onChange(artigo)} className={artigo.nome == PDF?.nome ? classes.rowselected: index % 2 == 0 ? classes.row1 : classes.row2}>
+                      <div key={index} onClick={() => onChange(artigo)} className={artigo.nome == PDF?.nome ? classes.rowselected : index % 2 == 0 ? classes.row1 : classes.row2}>
                         <span className={classes.text}>
                           {artigo.nome}
                         </span>
@@ -56,10 +59,17 @@ const Artigos = (props) => {
               </Paper>
               <div className={classes.artigosRight}>
                 <div>
-                  <iframe id="artigosPDF" src={PDF?.file} className={classes.artigosPDF}></iframe>
-                  {/* <object data={PDF} type="application/pdf">
-                    <embed src={PDF} type="application/pdf" />
-                  </object> */}
+                  {
+                    PDF?.file
+                      ? <iframe id="artigosPDF" src={PDF?.file} className={classes.artigosPDF}></iframe>
+                      : PDF?.url
+                        ? <span>Seu artigo será aberto em una nova guia</span>
+                        : <span>Selecione um artigo a ser exibido</span>
+                  }
+                  {/* <iframe id="artigosPDF" src={PDF?.file} className={classes.artigosPDF}></iframe> */}
+                  {/* <object data={PDF} type="application/pdf" className={classes.artigosPDF}>
+                      <embed src={PDF} type="application/pdf" />
+                    </object> */}
                 </div>
               </div>
             </div>
@@ -101,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     flexDirection: "column",
     alignItems: "center",
-    padding: "5px 5px 5px 5px",
+    padding: "5px 5px 5px 5px"
   },
   artigosPDF: {
     width: '100%',

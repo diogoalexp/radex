@@ -35,7 +35,6 @@ export const fetchQuestions = () => {
           querySnapshot.forEach((doc) => {
             loadedQuestions.push(doc.data());
           });
-          console.log('loadedQuestions', loadedQuestions);
           dispatch({
             type: actionTypes.SET_QUESTIONS,
             questions: loadedQuestions,

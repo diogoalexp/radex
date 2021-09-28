@@ -1,10 +1,16 @@
-import { SET_QUESTIONS, SET_START, SET_NOTA } from "../types";
+import { SET_QUESTIONS, SET_START, SET_NOTA, LOGOUT } from "../types";
 
 const initialState = {
   start: null,
   questions: null,
   nota: null
 };
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -14,15 +20,28 @@ export default (state = initialState, action) => {
         start: action.start
       };
     case SET_QUESTIONS:
+      let selectedQuestions = action.questions;
+      selectedQuestions.forEach(element => {
+        element.random = getRandomInt(1, 100000)
+      });
+      selectedQuestions = selectedQuestions.sort(function (a, b) {
+        return a.random - b.random;
+      });
+      selectedQuestions = selectedQuestions.slice(0, 10);
+
       return {
         ...state,
-        questions: action.questions
+        questions: selectedQuestions
       };
     case SET_NOTA:
       return {
         ...state,
         questions: null,
         nota: action.nota
+      };
+    case LOGOUT:
+      return {
+        ...initialState,
       };
     default:
       return state;

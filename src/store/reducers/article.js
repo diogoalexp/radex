@@ -10,7 +10,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         articles: action.articles
-      };
+      };    
     default:
       return state;
   }

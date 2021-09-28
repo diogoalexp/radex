@@ -1,4 +1,4 @@
-import { SET_PERFIL, SET_RESPOSTAS, SET_NOTA } from "../types";
+import { SET_PERFIL, SET_RESPOSTAS, SET_NOTA, LOGOUT } from "../types";
 
 const initialState = {
   clinica: 'bNB5j36HcXbkEkWysmry',
@@ -22,6 +22,10 @@ export default (state = initialState, action) => {
       return {
         ...state,
         respostas: null
+      };
+    case LOGOUT:
+      return {
+        ...initialState,
       };
     default:
       return state;

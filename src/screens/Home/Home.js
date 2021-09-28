@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 
 import { withLocale, withNotify } from "../../components/HighOrder/";
 
@@ -11,28 +10,16 @@ import imgStefany from "../../assets/images/stefany.jpg";
 import {
   Card,
   Grid,
-  Link,
-  Typography,
   Avatar,
   Container,
-  Icons,
   makeStyles,
   Colors,
-  Paper
 } from "../../components/UI/";
 
-import * as actions from "../../store/index";
-
 const Home = (props) => {
-  const { locale, notify } = props;
-  const dispatch = useDispatch();
-
-  const [erro, setErro] = useState(null);
-
-
   const classes = useStyles();
   return (
-    <Container container component="main">
+    <Container component="main">
       <Grid container spacing={3} direction="row" justify="center" alignItems="center">
         <Grid item xs={12}>
           <Card className={classes.card}>
@@ -107,6 +94,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     padding: "5px 5px 5px 5px",
+    marginBottom: '20px'
   },
   text: {
     fontSize: 16,

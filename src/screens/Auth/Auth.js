@@ -84,7 +84,6 @@ const Auth = (props) => {
         notify.success(locale.auth.passNewSent);
       })
       .catch((err) => {
-        console.log('err', err);
         if (err?.code == "auth/user-not-found")
           notify.error(locale.erro.EMAIL_NOT_FOUND, err);
         else
@@ -94,14 +93,14 @@ const Auth = (props) => {
 
   const classes = useStyles();
   return (
-    <Container container component="main">
+    <Container component="main">
       <DialogForgotPassword
         open={isForgotPassword}
         onClose={() => setIsForgotPassword(false)}
         submit={forgotPassword}
       />
       <Grid container spacing={3} direction="row" justify="center" alignItems="center">
-        <Grid item xs={6}>
+        <Grid item xs={window.innerWidth > 500 ? 6 : 12}>
           <Card className={classes.card}>
             <Avatar className={classes.pink}>
               <Icons.LockOutlined />
@@ -190,6 +189,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     padding: "5px 5px 5px 5px",
+    marginBottom: "20px"
   },
   form: {
     width: "100%",
