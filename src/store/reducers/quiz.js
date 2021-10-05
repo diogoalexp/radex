@@ -20,7 +20,11 @@ export default (state = initialState, action) => {
         start: action.start
       };
     case SET_QUESTIONS:
-      let selectedQuestions = action.questions;
+      const filterQuestions  = action.questions.filter(x =>  {
+        return x.alternativas && x.alternativas.some(a => a == x.resposta)
+      })
+
+      let selectedQuestions = filterQuestions;
       selectedQuestions.forEach(element => {
         element.random = getRandomInt(1, 100000)
       });

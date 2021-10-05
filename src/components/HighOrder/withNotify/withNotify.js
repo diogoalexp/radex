@@ -19,6 +19,11 @@ const withNotify = (WrappedComponent) => {
       request: null,
     };
 
+    formatError = (error) => {
+      return error?.replace('/', '_').replace('.', '_').replace('-', '_').replace('-', '_').toUpperCase()
+    };
+
+
     close = () => {
       this.setState({ type: null, message: null });
     };
@@ -81,15 +86,26 @@ const withNotify = (WrappedComponent) => {
         );
       },
       identifyError: (err) => {
-        const ID = err?.error?.message;
-
-        if (this.props.locale.erro[ID]) return this.props.locale.erro[ID];
+        let error = err?.error?.message;
+        if (!error)
+          error = err?.code;
+        if (!error)
+          error = err?.message;
+        
+        if (this.props.locale.erro[error] || this.props.locale.erro[this.formatError(error)]) return this.props.locale.erro[error];
 
         for (const key in this.props.locale.erro) {
-          if (err?.error?.message?.includes(key))
+          if (error == key || error.includes(key) || error.includes(this.props.locale.erro[key]) || error.includes(this.formatError(key)) || error.includes(this.formatError(this.props.locale.erro[key])) )
             return this.props.locale.erro[key];
         }
-        return null;
+
+        if (error.includes('A network error'))
+          return this.props.locale.erro.BAD_CONNECTION;
+
+        if (error)
+          return error;
+        else
+          return this.props.locale.erro.DEFAULT;
       },
     };
 

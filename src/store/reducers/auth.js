@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
     case SET_DID_TRY_AL:
       return {
         ...state,
-        didTryAutoLogin: true,
+        didTryAutoLogin: action.value == false ? false : true,
       };
     case EXPIRED:
       return {

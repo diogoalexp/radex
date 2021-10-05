@@ -31,8 +31,9 @@ const MainRouter = () => {
   }, [])
 
   useEffect(() => {
-    dispatch(actions.tryAutoLogin());
-  }, []);
+    if (!didTryAutoLogin)
+      dispatch(actions.tryAutoLogin());
+  }, [didTryAutoLogin]);
 
 
 

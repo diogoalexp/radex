@@ -47,15 +47,16 @@ export const setPerfil = (nome, idade, cargo, imgField) => {
       const userId = getState().auth.userId;
       let imgBucket = `usuarios/${userId}/perfil`;
       let img = null;
-
+      
       if (imgField?.touched) {
         img = imgField?.value;
         const ref = firebase.storage().ref();
 
-        ref
+        await ref
           .child(imgBucket)
           .putString(img, "data_url")
           .then((snapshot) => { });
+        
         img = await ref.child(imgBucket).getDownloadURL();
       }
 

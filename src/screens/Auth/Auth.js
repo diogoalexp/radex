@@ -51,6 +51,7 @@ const Auth = (props) => {
           form.password.value,
         )
       ).then(() => {
+
         props.history.push({
           pathname: "/",
         });
@@ -72,6 +73,13 @@ const Auth = (props) => {
 
       if (message == locale.erro.TOO_MANY_ATTEMPTS_TRY_LATER)
         return setErro(locale.erro.TOO_MANY_ATTEMPTS_TRY_LATER);
+
+      if (message == locale.erro.VERIFY_PASSWORD_RESPONSE_TRY)
+        return setErro(locale.erro.VERIFY_PASSWORD_RESPONSE_TRY);
+
+      if (message == locale.erro.AUTH_USER_NOT_FOUND)
+        return setErro(locale.erro.AUTH_USER_NOT_FOUND);
+
 
       notify.exception(err);
     }

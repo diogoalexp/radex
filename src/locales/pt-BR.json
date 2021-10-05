@@ -28,11 +28,13 @@
     "EMAIL_NOT_FOUND": "Esse email não foi encontrado!",
     "INVALID_PASSWORD": "Usuário ou senha inválidos!",
     "VERIFY_PASSWORD_RESPONSE": "Seu email ainda não foi confirmado.",
+    "VERIFY_PASSWORD_RESPONSE_TRY": "Conta não verificada. Uma validação foi enviada para o seu e-mail.",
     "INVALID_ID_TOKEN": "Sua chave de segurança não é válida.",
     "TOO_MANY_ATTEMPTS_TRY_LATER": "Sua conta está temporariamente desabilitada devido a muitas tentativas de login, tente novamente mais tarde.",
     "GLOBAL_DEFAULT_ERROR":"Não foi possível completar a sua requisição.",
     "GLOBAL_DEFAULT_WARNING":"Houve um problema com a sua requisição.",
     "GLOBAL_DEFAULT_INFO":"Sua requisição foi enviada.",
-    "GLOBAL_DEFAULT_SUCCESS":"Requisição realizada com sucesso."
+    "GLOBAL_DEFAULT_SUCCESS":"Requisição realizada com sucesso.",
+    "AUTH_USER_NOT_FOUND":  "Usuário não cadastrado no sistema."
   }
 }

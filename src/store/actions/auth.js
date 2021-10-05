@@ -55,29 +55,22 @@ export const createUserWithEmailAndPassword = (email, password) => {
 };
 
 export const signInWithEmailAndPassword = (email, password) => {
+  console.log('signInWithEmailAndPassword');
   return async (dispatch, getState) => {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password)
         .then((response) => {
           if (!response || !response.user)
             throw Error("Erro de conexão");
-
+          
           const user = response.user.toJSON()
-
+          
           if (!user.emailVerified) {
             dispatch(sendEmailVerification());
             throw Error("Conta não verificada. Uma validação foi enviada para o seu e-mail.");
           }
 
-          // dispatch({
-          //   type: actionTypes.LOGIN,
-          //   userId: user.uid,
-          //   token: user.stsTokenManager?.accessToken,
-          //   refreshToken: user.stsTokenManager?.refreshToken,
-          //   displayName: user.displayName,
-          //   photoURL: user.photoURL,
-          //   phoneNumber: user.phoneNumber
-          // });
+          dispatch(tryAutoLogin())
         })
         .catch((error) => {
           throw error;
