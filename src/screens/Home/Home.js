@@ -49,7 +49,7 @@ const Home = (props) => {
               </div>
               <div className={classes.avatar}>
                 <Avatar className={classes.pink} src={imgStefany} />
-                <div className={classes.nome}>Stefany Brando Mary</div>
+                <div className={classes.nome}>Stefany Brando Mary de Arruda</div>
                 <div className={classes.cargo}>Co-orientadora</div>
               </div>
             </div>

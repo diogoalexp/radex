@@ -33,6 +33,18 @@ export default (state = initialState, action) => {
       });
       selectedQuestions = selectedQuestions.slice(0, 10);
 
+      //random alternativas
+      selectedQuestions.forEach(element => {
+        let RandomAlternativas = []
+
+        element.alternativas.forEach((alternativa) => {
+          let random = getRandomInt(1, 100000)
+          RandomAlternativas[random] = alternativa
+        });
+
+        element.alternativas = RandomAlternativas;
+      });
+
       return {
         ...state,
         questions: selectedQuestions
